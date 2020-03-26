@@ -96,4 +96,3 @@ C:\Users\lamme\OneDrive\Bureaublad\School\Project 2\DevbitApi\DevbitApi\bin\Debu
 C:\Users\lamme\OneDrive\Bureaublad\School\Project 2\DevbitApi\DevbitApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\lamme\OneDrive\Bureaublad\School\Project 2\DevbitApi\DevbitApi\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 C:\Users\lamme\OneDrive\Bureaublad\School\Project 2\DevbitApi\DevbitApi\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
-C:\Users\lamme\OneDrive\Bureaublad\School\Project 2\DevbitApi\DevbitApi\obj\Debug\netcoreapp3.1\DevbitApi.MvcApplicationPartsAssemblyInfo.cache
