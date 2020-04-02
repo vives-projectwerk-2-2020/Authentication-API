@@ -18,10 +18,12 @@ namespace DevbitApi.Controllers
     public class UserController : ControllerBase
     {
         private IUserService _userService;
+        private readonly UserContext _context;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, UserContext context)
         {
             _userService = userService;
+            _context = context;
         }
 
         [AllowAnonymous]
@@ -58,6 +60,16 @@ namespace DevbitApi.Controllers
             var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
             User test = _userService.GetCurrentUser(Convert.ToInt32(userId));
             return test;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<ActionResult<UserModel>> PostUser([FromBody]UserModel userModel)
+        {
+            _context.UserModels.Add(userModel);
+            await _context.SaveChangesAsync();
+
+            return userModel;
         }
 
 

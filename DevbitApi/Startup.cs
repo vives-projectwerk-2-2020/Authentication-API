@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Hosting;
 using DevbitApi.Helpers;
 using DevbitApi.Service;
+using DevbitApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DevbitApi
 {
@@ -24,6 +26,8 @@ namespace DevbitApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -48,6 +52,8 @@ namespace DevbitApi
                 };
             });
 
+            services.AddDbContext<UserContext>(opt =>
+                opt.UseSqlServer("UserDb"));
 
             services.AddScoped<IUserService, UserService>();
         }
