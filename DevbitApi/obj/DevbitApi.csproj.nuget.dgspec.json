@@ -1,21 +1,18 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\DevbitApi.csproj": {}
+    "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\DevbitApi.csproj": {
+    "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\DevbitApi.csproj",
+        "projectUniqueName": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
         "projectName": "DevbitApi",
-        "projectPath": "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\DevbitApi.csproj",
+        "projectPath": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
         "packagesPath": "C:\\Users\\lamme\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\obj\\",
+        "outputPath": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\lamme\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -70,6 +67,10 @@
             "MySql.Data.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.19, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.10.1, )"
             }
           },
           "imports": [
@@ -90,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

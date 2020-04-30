@@ -1028,6 +1028,15 @@
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
         }
       },
+      "RestSharp/106.10.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/RestSharp.dll": {}
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -4639,6 +4648,21 @@
         "lib/netstandard1.6/NuGet.Frameworks.xml",
         "nuget.frameworks.4.7.0.nupkg.sha512",
         "nuget.frameworks.nuspec"
+      ]
+    },
+    "RestSharp/106.10.1": {
+      "sha512": "MhR4w8LbArVaRA5T/oAR3ZnF852QXtDXRBO84GsvyYzsm7FsjXHJ+JaM8x/nR/B/OCB1WbolGH7hqMT1GZpNJw==",
+      "type": "package",
+      "path": "restsharp/106.10.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/RestSharp.dll",
+        "lib/net452/RestSharp.xml",
+        "lib/netstandard2.0/RestSharp.dll",
+        "lib/netstandard2.0/RestSharp.xml",
+        "restsharp.106.10.1.nupkg.sha512",
+        "restsharp.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -9445,25 +9469,22 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.1",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.1",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
-      "MySql.Data.EntityFrameworkCore >= 8.0.19"
+      "MySql.Data.EntityFrameworkCore >= 8.0.19",
+      "RestSharp >= 106.10.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\lamme\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\lamme\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\DevbitApi.csproj",
+      "projectUniqueName": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
       "projectName": "DevbitApi",
-      "projectPath": "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\DevbitApi.csproj",
+      "projectPath": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
       "packagesPath": "C:\\Users\\lamme\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\lamme\\OneDrive\\Bureaublad\\School\\Project 2\\DevbitApi\\DevbitApi\\obj\\",
+      "outputPath": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
         "C:\\Users\\lamme\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -9518,6 +9539,10 @@
           "MySql.Data.EntityFrameworkCore": {
             "target": "Package",
             "version": "[8.0.19, )"
+          },
+          "RestSharp": {
+            "target": "Package",
+            "version": "[106.10.1, )"
           }
         },
         "imports": [
@@ -9538,7 +9563,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

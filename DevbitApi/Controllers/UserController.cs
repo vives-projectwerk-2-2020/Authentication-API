@@ -9,6 +9,8 @@ using DevbitApi.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RestSharp;
 
 namespace DevbitApi.Controllers
 {
@@ -40,12 +42,19 @@ namespace DevbitApi.Controllers
             return Ok(user);
         }
 
-
+        [AllowAnonymous]
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var users = _userService.GetAll();
-            return Ok(users);
+            var client = new RestClient($"http://develop.particula.devbitapp.be:8080/users");
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = await client.ExecuteAsync(request);
+
+            string resp = response.ToString();
+            var json = JsonConvert.SerializeObject(response.Content);
+            //TODO: transform the response here to suit your needs
+
+            return Ok(json);
         }
 
         /// <summary>
