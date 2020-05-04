@@ -44,34 +44,34 @@ namespace DevbitApi.Controllers
         // PUT: api/UserModels/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUserModel(int id, UserModel userModel)
-        {
-            if (id != userModel.UserId)
-            {
-                return BadRequest();
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutUserModel(int id, UserModel userModel)
+        //{
+        //    if (id != userModel.UserId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(userModel).State = EntityState.Modified;
+        //    _context.Entry(userModel).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserModelExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!UserModelExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/UserModels
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
@@ -101,9 +101,9 @@ namespace DevbitApi.Controllers
             return userModel;
         }
 
-        private bool UserModelExists(int id)
-        {
-            return _context.UserModels.Any(e => e.UserId == id);
-        }
+        //private bool UserModelExists(int id)
+        //{
+        //    return _context.UserModels.Any(e => e.UserId == id);
+        //}
     }
 }

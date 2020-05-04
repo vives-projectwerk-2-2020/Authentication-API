@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using DevbitApi.Entities;
+using DevbitApi.Helpers;
 using DevbitApi.Models;
-using DevbitApi.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace DevbitApi.Controllers
@@ -19,42 +26,69 @@ namespace DevbitApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IUserService _userService;
         private readonly UserContext _context;
+        private readonly AppSettings _appSettings;
 
-        public UserController(IUserService userService, UserContext context)
+        public UserController(UserContext context, IOptions<AppSettings> appSettings)
         {
-            _userService = userService;
             _context = context;
+            _appSettings = appSettings.Value;
         }
 
         [AllowAnonymous]
-        [HttpPost("authenticate")]
-        public IActionResult Autenticate([FromBody]AuthenticateModel model)
+        [HttpPost("Login")]
+        public async Task<string> Login(string userName, string userPassword)
         {
-            var user = _userService.Authenticate(model.Username, model.Password);
+            var users = await GetAllUsers();
+            string r = "false";
 
-            if (user == null)
+            foreach (var user in users)
             {
-                return BadRequest(new { message = "Username or password is incorrect" });
+                if (user.UserName == userName && user.UserPassword == userPassword)
+                {
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
+                    new Claim(ClaimTypes.Name, user.UserId.ToString())
+                        }),
+                        Expires = DateTime.UtcNow.AddSeconds(10),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    user.Token = tokenHandler.WriteToken(token);
+
+                    r = user.Token.ToString();
+                }
+
+                
             }
 
-            return Ok(user);
+            return r;
+        }
+
+        
+        private async Task<List<UserModel>> GetAllUsers()
+        {
+            HttpClient clients = new HttpClient();
+            HttpResponseMessage responses = await clients.GetAsync("http://develop.particula.devbitapp.be:8080/users");
+            responses.EnsureSuccessStatusCode();
+            string responseBody = await responses.Content.ReadAsStringAsync();
+
+            List<UserModel> result = JsonConvert.DeserializeObject<List<UserModel>>(responseBody);
+            
+            return result;
         }
 
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var client = new RestClient($"http://develop.particula.devbitapp.be:8080/users");
-            var request = new RestRequest(Method.GET);
-            IRestResponse response = await client.ExecuteAsync(request);
+            var result = await GetAllUsers();
 
-            string resp = response.ToString();
-            var json = JsonConvert.SerializeObject(response.Content);
-            //TODO: transform the response here to suit your needs
-
-            return Ok(json);
+            return Ok(result);
         }
 
         /// <summary>
@@ -62,14 +96,7 @@ namespace DevbitApi.Controllers
         /// use this function to check current userid with the token (got from login)
         /// </summary>
         /// <returns></returns>
-        [HttpGet("test")]
-        public User Test()
-        {
-            var claimsIdentity = this.User.Identity as ClaimsIdentity;
-            var userId = claimsIdentity.FindFirst(ClaimTypes.Name)?.Value;
-            User test = _userService.GetCurrentUser(Convert.ToInt32(userId));
-            return test;
-        }
+
 
         [AllowAnonymous]
         [HttpPost("register")]

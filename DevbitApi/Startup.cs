@@ -7,7 +7,6 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Hosting;
 using DevbitApi.Helpers;
-using DevbitApi.Service;
 using DevbitApi.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -55,7 +54,6 @@ namespace DevbitApi
             services.AddDbContext<UserContext>(opt =>
                 opt.UseSqlServer("UserDb"));
 
-            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
