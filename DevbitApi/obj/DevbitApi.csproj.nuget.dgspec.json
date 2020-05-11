@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj": {}
+    "D:\\VIVES\\Vakken\\Projectwerk2\\Authentication-API\\DevbitApi\\DevbitApi.csproj": {}
   },
   "projects": {
-    "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj": {
+    "D:\\VIVES\\Vakken\\Projectwerk2\\Authentication-API\\DevbitApi\\DevbitApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
+        "projectUniqueName": "D:\\VIVES\\Vakken\\Projectwerk2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
         "projectName": "DevbitApi",
-        "projectPath": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
-        "packagesPath": "C:\\Users\\lamme\\.nuget\\packages\\",
-        "outputPath": "D:\\School\\Minor\\ProjectWeek2\\Authentication-API\\DevbitApi\\obj\\",
+        "projectPath": "D:\\VIVES\\Vakken\\Projectwerk2\\Authentication-API\\DevbitApi\\DevbitApi.csproj",
+        "packagesPath": "C:\\Users\\benja\\.nuget\\packages\\",
+        "outputPath": "D:\\VIVES\\Vakken\\Projectwerk2\\Authentication-API\\DevbitApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\lamme\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\benja\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
