@@ -52,7 +52,7 @@ namespace DevbitApi.Controllers
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                         {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString())
+                            new Claim(ClaimTypes.Name, user.id.ToString())
                         }),
                         Expires = DateTime.UtcNow.AddSeconds(10),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -62,18 +62,37 @@ namespace DevbitApi.Controllers
 
                     r = user.Token.ToString();
                 }
-
-                
             }
-
             return r;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public async Task<string> RegisterUser(string username, string userPassword, string email)
+        {
+            HttpClient client = new HttpClient();
+
+            var values = new Dictionary<string, string>
+            {
+                { "UserName", username },
+                { "UserPassword", userPassword },
+                { "Email", email}
+            };
+
+            var content = new FormUrlEncodedContent(values);
+
+            var response = await client.PostAsync("http://develop.particula.devbitapp.be:80/users", content);
+
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            return responseString;
         }
 
         
         private async Task<List<UserModel>> GetAllUsers()
         {
             HttpClient clients = new HttpClient();
-            HttpResponseMessage responses = await clients.GetAsync("http://develop.particula.devbitapp.be:8080/users");
+            HttpResponseMessage responses = await clients.GetAsync("http://develop.particula.devbitapp.be:80/users");
             responses.EnsureSuccessStatusCode();
             string responseBody = await responses.Content.ReadAsStringAsync();
 
@@ -82,7 +101,7 @@ namespace DevbitApi.Controllers
             return result;
         }
 
-        [AllowAnonymous]
+        [AllowAnonymous] //only for tests
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -98,15 +117,15 @@ namespace DevbitApi.Controllers
         /// <returns></returns>
 
 
-        [AllowAnonymous]
-        [HttpPost("register")]
-        public async Task<ActionResult<UserModel>> PostUser([FromBody]UserModel userModel)
-        {
-            _context.UserModels.Add(userModel);
-            await _context.SaveChangesAsync();
+        //[AllowAnonymous]
+        //[HttpPost("register")]
+        //public async Task<ActionResult<UserModel>> PostUser([FromBody]UserModel userModel)
+        //{
+        //    _context.UserModels.Add(userModel);
+        //    await _context.SaveChangesAsync();
 
-            return userModel;
-        }
+        //    return userModel;
+        //}
 
 
     }

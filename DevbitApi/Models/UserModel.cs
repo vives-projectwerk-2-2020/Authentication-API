@@ -9,7 +9,7 @@ namespace DevbitApi.Models
 {
     public class UserModel
     {
-        public int UserId { get; set; }
+        public int id { get; set; }
 
         public string UserName { get; set; }
         public string UserPassword { get; set; }
