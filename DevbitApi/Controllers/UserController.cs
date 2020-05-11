@@ -87,7 +87,7 @@ namespace DevbitApi.Controllers
 
                 if (y != null)
                 {
-                    await client.DeleteAsync($"http://develop.particula.devbitapp.be:80/users/{userName}");
+                    await client.DeleteAsync($"https://develop.particula.devbitapp.be/users/{userName}");
                 }
                 else
                 {
@@ -124,7 +124,7 @@ namespace DevbitApi.Controllers
 
                 var content = new FormUrlEncodedContent(values);
 
-                var response = await client.PostAsync("http://develop.particula.devbitapp.be:80/users", content);
+                var response = await client.PostAsync("https://develop.particula.devbitapp.be/users", content);
 
                 responseString = await response.Content.ReadAsStringAsync();
             }
@@ -142,7 +142,7 @@ namespace DevbitApi.Controllers
         private async Task<List<UserModel>> GetAllUsers()
         {
             HttpClient clients = new HttpClient();
-            HttpResponseMessage responses = await clients.GetAsync("http://develop.particula.devbitapp.be:80/users");
+            HttpResponseMessage responses = await clients.GetAsync("https://develop.particula.devbitapp.be/users");
             responses.EnsureSuccessStatusCode();
             string responseBody = await responses.Content.ReadAsStringAsync();
 
