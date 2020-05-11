@@ -100,7 +100,7 @@ namespace DevbitApi.Controllers
 
             var users = await GetAllUsers();
 
-            var find = users.FirstOrDefault(x => x.UserName == username);
+            var find = users.FirstOrDefault(x => x.UserName == userName);
 
             if (find == null) 
             {
