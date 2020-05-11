@@ -6,18 +6,13 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using DevbitApi.Entities;
 using DevbitApi.Helpers;
 using DevbitApi.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
 
 namespace DevbitApi.Controllers
 {
@@ -66,24 +61,68 @@ namespace DevbitApi.Controllers
             return r;
         }
 
+        [AllowAnonymous] //for tests only
+        [HttpDelete("delete")]
+        public async Task<string> DeleteUser(string userName)
+        {
+            string response = "ok";
+            HttpClient client = new HttpClient();
+
+            try
+            {
+                var users = await GetAllUsers();
+
+                var y = users.FirstOrDefault(x => x.UserName == userName);
+
+                if (y != null)
+                {
+                    await client.DeleteAsync($"http://develop.particula.devbitapp.be:80/users/{userName}");
+                }
+                else
+                {
+                    response = "User Not Found";
+                }
+            }
+            catch (Exception e)
+            {
+                response = e.ToString();
+            }
+
+            return response;
+        }
+
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<string> RegisterUser(string username, string userPassword, string email)
         {
             HttpClient client = new HttpClient();
+            string responseString;
 
-            var values = new Dictionary<string, string>
+            var users = await GetAllUsers();
+
+            var find = users.FirstOrDefault(x => x.UserName == username);
+
+            if (find == null) 
             {
-                { "UserName", username },
-                { "UserPassword", userPassword },
-                { "Email", email}
-            };
+                var values = new Dictionary<string, string>
+                {
+                    { "UserName", username },
+                    { "UserPassword", userPassword },
+                    { "Email", email}
+                };
 
-            var content = new FormUrlEncodedContent(values);
+                var content = new FormUrlEncodedContent(values);
 
-            var response = await client.PostAsync("http://develop.particula.devbitapp.be:80/users", content);
+                var response = await client.PostAsync("http://develop.particula.devbitapp.be:80/users", content);
 
-            var responseString = await response.Content.ReadAsStringAsync();
+                responseString = await response.Content.ReadAsStringAsync();
+            }
+            else
+            {
+                responseString = "User already exist";
+            }
+
+            
 
             return responseString;
         }
