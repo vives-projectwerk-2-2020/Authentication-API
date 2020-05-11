@@ -93,7 +93,7 @@ namespace DevbitApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<string> RegisterUser(string username, string userPassword, string email)
+        public async Task<string> RegisterUser(string userName, string userPassword, string email)
         {
             HttpClient client = new HttpClient();
             string responseString;
@@ -106,7 +106,7 @@ namespace DevbitApi.Controllers
             {
                 var values = new Dictionary<string, string>
                 {
-                    { "UserName", username },
+                    { "UserName", userName },
                     { "UserPassword", userPassword },
                     { "Email", email}
                 };
