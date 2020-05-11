@@ -4,8 +4,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using DevbitApi.Entities;
 using DevbitApi.Helpers;
 using DevbitApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +26,8 @@ namespace DevbitApi.Controllers
         private readonly UserContext _context;
         private readonly AppSettings _appSettings;
 
+        //public List<UserModel> authUsers;
+
         public UserController(UserContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
@@ -31,12 +35,19 @@ namespace DevbitApi.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPost("logout")]
+        public List<UserModel> logout(string userName)
+        {
+            //return authUsers;
+            return null;
+        }
+
+        [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<string> Login(string userName, string userPassword)
+        public async Task<UserModel> Login(string userName, string userPassword)
         {
             var users = await GetAllUsers();
-            string r = "false";
-
+            UserModel r = new UserModel() { UserName = "1", UserPassword = "2" , id = 0, Email = "3"};
             foreach (var user in users)
             {
                 if (user.UserName == userName && user.UserPassword == userPassword)
@@ -49,13 +60,13 @@ namespace DevbitApi.Controllers
                         {
                             new Claim(ClaimTypes.Name, user.id.ToString())
                         }),
-                        Expires = DateTime.UtcNow.AddSeconds(10),
+                        Expires = DateTime.UtcNow.AddMinutes(10),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                     };
                     var token = tokenHandler.CreateToken(tokenDescriptor);
                     user.Token = tokenHandler.WriteToken(token);
-
-                    r = user.Token.ToString();
+                    //authUsers.Add(user);
+                    r = user;
                 }
             }
             return r;
@@ -140,7 +151,7 @@ namespace DevbitApi.Controllers
             return result;
         }
 
-        [AllowAnonymous] //only for tests
+        //[AllowAnonymous] //only for tests
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
