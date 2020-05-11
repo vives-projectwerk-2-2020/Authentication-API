@@ -31,15 +31,15 @@ namespace DevbitApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("Login")]
-        public async Task<string> Login(string userName, string userPassword)
+        [HttpPost("login")]
+        public async Task<string> Login(string UserName, string UserPassword)
         {
             var users = await GetAllUsers();
             string r = "false";
 
             foreach (var user in users)
             {
-                if (user.UserName == userName && user.UserPassword == userPassword)
+                if (user.UserName == UserName && user.UserPassword == UserPassword)
                 {
                     var tokenHandler = new JwtSecurityTokenHandler();
                     var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -63,7 +63,7 @@ namespace DevbitApi.Controllers
 
         [AllowAnonymous] //for tests only
         [HttpDelete("delete")]
-        public async Task<string> DeleteUser(string userName)
+        public async Task<string> DeleteUser(string UserName)
         {
             string response = "ok";
             HttpClient client = new HttpClient();
@@ -72,11 +72,11 @@ namespace DevbitApi.Controllers
             {
                 var users = await GetAllUsers();
 
-                var y = users.FirstOrDefault(x => x.UserName == userName);
+                var y = users.FirstOrDefault(x => x.UserName == UserName);
 
                 if (y != null)
                 {
-                    await client.DeleteAsync($"http://develop.particula.devbitapp.be:80/users/{userName}");
+                    await client.DeleteAsync($"http://develop.particula.devbitapp.be/users/{UserName}");
                 }
                 else
                 {
@@ -93,27 +93,27 @@ namespace DevbitApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<string> RegisterUser(string username, string userPassword, string email)
+        public async Task<string> RegisterUser(string UserName, string UserPassword, string Email)
         {
             HttpClient client = new HttpClient();
             string responseString;
 
             var users = await GetAllUsers();
 
-            var find = users.FirstOrDefault(x => x.UserName == username);
+            var find = users.FirstOrDefault(x => x.UserName == UserName);
 
             if (find == null) 
             {
                 var values = new Dictionary<string, string>
                 {
-                    { "UserName", username },
-                    { "UserPassword", userPassword },
-                    { "Email", email}
+                    { "UserName", UserName },
+                    { "UserPassword", UserPassword },
+                    { "Email", Email}
                 };
 
                 var content = new FormUrlEncodedContent(values);
 
-                var response = await client.PostAsync("http://develop.particula.devbitapp.be:80/users", content);
+                var response = await client.PostAsync("http://develop.particula.devbitapp.be/users", content);
 
                 responseString = await response.Content.ReadAsStringAsync();
             }
@@ -131,7 +131,7 @@ namespace DevbitApi.Controllers
         private async Task<List<UserModel>> GetAllUsers()
         {
             HttpClient clients = new HttpClient();
-            HttpResponseMessage responses = await clients.GetAsync("http://develop.particula.devbitapp.be:80/users");
+            HttpResponseMessage responses = await clients.GetAsync("http://develop.particula.devbitapp.be/users");
             responses.EnsureSuccessStatusCode();
             string responseBody = await responses.Content.ReadAsStringAsync();
 
