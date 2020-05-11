@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:56098",
-      "sslPort": 44333
+        "applicationUrl": "http://localhost:56098",
+        "sslPort": 44333
     }
   },
   "$schema": "http://json.schemastore.org/launchsettings.json",
@@ -30,7 +30,7 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
       "publishAllPorts": true,
-      "useSSL": false
+      "useSSL": true
     }
   }
 }

@@ -151,7 +151,7 @@ namespace DevbitApi.Controllers
             return result;
         }
 
-        //[AllowAnonymous] //only for tests
+        [AllowAnonymous] //only for tests
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
