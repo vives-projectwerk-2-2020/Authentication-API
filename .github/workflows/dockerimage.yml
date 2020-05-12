@@ -21,6 +21,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: whoan/docker-build-with-cache-action@master
       with:
+        dockerfile: "/DevbitApi/Dockerfile"
         username: "${{ github.actor }}"
         password: "${{ secrets.GITHUB_TOKEN }}"
         image_name: vives-projectwerk-2-2020/authentication-api/particula-authentication-api
