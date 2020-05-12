@@ -36,11 +36,11 @@ jobs:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}
+        host: ${{ secrets.DEPLOYMENT_SERVER_HOST }}
+        username: ${{ secrets.DEPLOYMENT_SERVER_USERNAME }}
+        key: ${{ secrets.DEPLOYMENT_SERVER_KEY }}
+        port: ${{ secrets.DEPLOYMENT_SERVER_PORT }}
         script: |
-          cd ${{ secrets.PATH }}
+          cd ${{ secrets.DEPLOYMENT_SERVER_PATH }}
           docker-compose pull authentication_api
           docker-compose up -d authentication_api
