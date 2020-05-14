@@ -76,7 +76,7 @@ namespace DevbitApi.Controllers
         [HttpDelete("delete")]
         public async Task<string> DeleteUser(string userName)
         {
-            string response = "ok";
+            string response = "User Deleted";
             HttpClient client = new HttpClient();
 
             try
@@ -126,11 +126,12 @@ namespace DevbitApi.Controllers
 
                 var response = await client.PostAsync("https://develop.particula.devbitapp.be/users", content);
 
-                responseString = await response.Content.ReadAsStringAsync();
+                //responseString = await response.Content.ReadAsStringAsync();
+                responseString = "User Successfully Created";
             }
             else
             {
-                responseString = "User already exist";
+                responseString = "User already exists";
             }
 
             
