@@ -14,33 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag image
-    
-    - name: Log into registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
-    - name: Push image
+    - name: Branch name
+      id: branchname
       run: |
-        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
-        
-        # Strip git ref prefix from version
-        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-        
-        # Strip "v" prefix from tag name
-        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-        
-        # Use Docker `latest` tag convention
-        [ "$VERSION" == "develop" ] && VERSION=latest
-        
-        # Convert IMAGE_ID to lowercase
-        IMAGE_ID="${IMAGE_ID,,}"
-        
-        echo IMAGE_ID=$IMAGE_ID
-        echo VERSION=$VERSION
-        docker tag image $IMAGE_ID:$VERSION
-        docker push $IMAGE_ID:$VERSION
+        echo "::set-output name=branch::`echo '${{ github.ref }}' | sed -e 's,.*/\(.*\),\1,'`"
+    - uses: actions/checkout@v2
+    - uses: whoan/docker-build-with-cache-action@master
+      with:
+        dockerfile: "/DevbitApi/Dockerfile"
+        username: "${{ github.actor }}"
+        password: "${{ secrets.GITHUB_TOKEN }}"
+        image_name: vives-projectwerk-2-2020/authentication-api/particula-authentication-api
+        image_tag: "${{ steps.branchname.outputs.branch }}"
+        registry: docker.pkg.github.com
         
   deploy:
     name: deploy
