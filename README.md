@@ -4,17 +4,17 @@
 
 The api is writting in c# with asp.net core
 It uses controller which are being called with requests through an url.
-To request a specific method inside the controller change the url to <server>/api/<controller>/<methodname>
+To request a specific method inside the controller change the url to [server]/api/[controller]/[methodname]
 
 * sending requests
 
-To send request to the API send requests to the url: <server>/api/user
+To send request to the API send requests to the url: [server]/api/user
 The `user` is the name of the controller wich is contacted.
 In that controller are multiple functions
 To call specific functions change the url to:
--   <server>/api/user/login (post)
--   <server>/api/user/register (post)
--   <server>/api/user/delete (delete)
+-   [server]/api/user/login (post)
+-   [server]/api/user/register (post)
+-   [server]/api/user/delete (delete)
 
 * login + authentication
 
