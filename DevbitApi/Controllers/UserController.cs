@@ -7,7 +7,6 @@ using System.Security.Claims;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
-using DevbitApi.Entities;
 using DevbitApi.Helpers;
 using DevbitApi.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -23,14 +22,12 @@ namespace DevbitApi.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly UserContext _context;
         private readonly AppSettings _appSettings;
 
         //public List<UserModel> authUsers;
 
-        public UserController(UserContext context, IOptions<AppSettings> appSettings)
+        public UserController( IOptions<AppSettings> appSettings)
         {
-            _context = context;
             _appSettings = appSettings.Value;
         }
 

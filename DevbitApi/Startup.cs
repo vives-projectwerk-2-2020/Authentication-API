@@ -50,10 +50,6 @@ namespace DevbitApi
                     ValidateAudience = false
                 };
             });
-
-            services.AddDbContext<UserContext>(opt =>
-                opt.UseSqlServer("UserDb"));
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
